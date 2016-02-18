@@ -1,0 +1,68 @@
+<head>
+    <title>LendLib</title>
+</head>
+
+<body>
+<h1>Lending Library!</h1>
+<div id="lendlib" class="container">
+    {{> loginButtons}}
+    <div id="categories-container">
+        {{> categories}}
+    </div>
+    <div id="list">
+        {{> list}}
+    </div>
+    <div class="madewith pull-right">
+        Powered by  <img src="images/Meteor-logo.png" alt="">
+    </div>
+
+</div>
+</body>
+
+<template name="categories">
+    <h2 class="title">My Stuff</h2>
+
+    <div id="categories" class="btn-group">
+        {{#if new_cat}}
+            <div class="category form-group" id="newCat">
+                <input type="text" id="add-category" class="form-control" value=""/>
+
+            </div>
+        {{else}}
+            <div class="category btn btn-primary" id="btnNewCat">
+                <span class="glyphicon glyphicon-plus"></span>
+            </div>
+        {{/if}}
+        {{#each lists}}
+            <div class="category btn {{list_status}}" id="{{_id}}">
+                {{Category}}
+            </div>
+        {{/each}}
+    </div>
+</template>
+
+<template name="list">
+    <div id="lending_list" class = "list-group">
+        {{#each items}}
+            <div class = "lending_item list-group-item alert">
+                <button type="button" class="close delete_item" id = {{Name}}>X</button>
+                {{Name}}
+                {{#if lendee_editing}}
+                    <input type="text" id="edit_lendee" class="pull-right span-2" value=""/>
+                {{else}}
+                    <div class="lendee pull-right label {{LendClass}}">
+                        {{Lendee}}
+                    </div>
+                {{/if}}
+            </div>
+        {{/each}}
+        {{#if list_selected}}
+            <div class="list-group-item alert-success" id="btnAddItem">
+                <span class="glyphicon glyphicon-plus"></span>
+                {{#if list_adding}}
+                    <input class="span-4" id="item_to_add" size="32" type="text">
+                {{/if}}
+            </div>
+        {{/if}}
+    </div>
+</template>
